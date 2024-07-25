@@ -9,36 +9,23 @@
             return urlParams.get(param);
         }
 
-        function copyToClipboard(text) {
-            const el = document.createElement('textarea');
-            el.value = text;
-            document.body.appendChild(el);
-            el.select();
-            document.execCommand('copy');
-            document.body.removeChild(el);
-        }
-
-        function handlePageLoad() {
-            const padname = getQueryParam('padname');
-            if (padname) {
-                // Display a button to the user to trigger copy
-                const button = document.createElement('button');
-                button.textContent = 'Click to Copy';
-                button.onclick = () => {
-                    copyToClipboard(padname);
-                    alert('Link copied to clipboard');
-                    // Optionally close the tab
-                    // window.close();
-                };
-                document.body.appendChild(button);
+        function copyToClipboard() {
+            const url = getQueryParam('padname');
+            if (url) {
+                const el = document.createElement('textarea');
+                el.value = url;
+                document.body.appendChild(el);
+                el.select();
+                document.execCommand('copy');
+                document.body.removeChild(el);
+                alert('Link copied to clipboard');
             } else {
                 alert('No padname parameter found in the URL');
             }
         }
-
-        window.onload = handlePageLoad;
     </script>
 </head>
 <body>
+    <button onclick="copyToClipboard()">Copy Path</button>
 </body>
 </html>
