@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Copy Link</title>
+    <script>
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        function copyToClipboard() {
+            const url = getQueryParam('padname');
+            if (url) {
+                const el = document.createElement('textarea');
+                el.value = url;
+                document.body.appendChild(el);
+                el.select();
+                document.execCommand('copy');
+                document.body.removeChild(el);
+                alert('Link copied to clipboard');
+            } else {
+                alert('No padname parameter found in the URL');
+            }
+        }
+    </script>
+</head>
+<body>
+    <button onclick="copyToClipboard()">Copy Path</button>
+</body>
+</html>
