@@ -4,27 +4,41 @@
     <meta charset="UTF-8">
     <title>Copy Link</title>
     <script>
+        // Function to get URL parameters
         function getQueryParam(param) {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(param);
         }
 
-        function copyToClipboard() {
-            const url = getQueryParam('padname');
-            if (url) {
-                const el = document.createElement('textarea');
-                el.value = url;
-                document.body.appendChild(el);
-                el.select();
-                document.execCommand('copy');
-                document.body.removeChild(el);
+        // Function to copy text to clipboard
+        function copyToClipboard(text) {
+            // Create a temporary textarea element
+            const el = document.createElement('textarea');
+            el.value = text;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+        }
+
+        // Function to be executed on page load
+        function onPageLoad() {
+            const padname = getQueryParam('padname');
+            if (padname) {
+                copyToClipboard(padname);
                 alert('Link copied to clipboard');
+                // Optionally, you can close the browser tab here, but it's generally not recommended
+                // window.close();
             } else {
                 alert('No padname parameter found in the URL');
             }
         }
+
+        // Execute the onPageLoad function when the page loads
+        window.onload = onPageLoad;
     </script>
 </head>
-<body onload="copyToClipboard()">
+<body>
+    <!-- Content can be empty as the functionality is handled by JavaScript -->
 </body>
 </html>
